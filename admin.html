@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xcel Hub Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="admin-page">
+
+<header class="admin-topbar">
+    <div class="admin-brand">
+        <img src="images/logo.png" alt="Xcel Hub Logo">
+        <div>
+            <h3>Xcel Hub Admin</h3>
+            <span>Registration Monitoring Dashboard</span>
+        </div>
+    </div>
+
+    <a href="index.html" class="admin-logout">Logout</a>
+</header>
+
+<main class="admin-wrapper">
+
+    <div class="admin-title">
+        <h1>Admin Dashboard</h1>
+        <p>Monitor training interest, registration responses, and learner needs.</p>
+    </div>
+
+    <!-- DASHBOARD -->
+    <section id="dashboardSection" class="admin-section active">
+
+        <div class="dashboard-cards">
+
+    <!-- TOTAL REGISTRATIONS -->
+    <div class="dashboard-card">
+
+        <img 
+        src="images/totalregistration.png"
+        alt="Registrations"
+        class="dashboard-icon"
+        >
+
+        <p>Total Registrations</p>
+
+        <h2 id="totalRegistrations">0</h2>
+
+    </div>
+
+    <!-- MOST POPULAR TRAINING -->
+    <div class="dashboard-card">
+
+        <img
+        src="images/mostpopular.png"
+        alt="Popular Training"
+        class="dashboard-icon"
+        >
+
+        <p>Most Popular Training</p>
+
+        <h2 id="popularTraining">-</h2>
+
+    </div>
+
+    <!-- LAPTOP REQUESTS -->
+    <div class="dashboard-card">
+
+        <img 
+        src="images/laptoprequest.png"
+         alt="Laptop Requests"
+        class="dashboard-icon"
+        >
+
+        <p>Laptop Requests</p>
+
+        <h2 id="laptopRequests">0</h2>
+
+    </div>
+
+    <!-- BEGINNER USERS -->
+    <div class="dashboard-card">
+
+        <img 
+        src="images/beginneruser.png"
+        alt="Beginner Users"
+        class="dashboard-icon"
+        >
+
+        <p>Beginner Users</p>
+
+        <h2 id="beginnerUsers">0</h2>
+
+    </div>
+
+</div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-panel">
+                <h3>Training Demand</h3>
+
+                <div class="bar-chart">
+                    <div><span id="barDailyUsers"></span><p>Daily Users</p></div>
+                    <div><span id="barSheets"></span><p>Sheets</p></div>
+                    <div><span id="barLiteracy"></span><p>Literacy</p></div>
+                    <div><span id="barBeginners"></span><p>Beginners</p></div>
+                    <div><span id="barAITools"></span><p>AI Tools</p></div>
+                </div>
+            </div>
+
+            <div class="dashboard-panel">
+                <h3>Skill Level Distribution</h3>
+
+                <div class="skill-row">
+                    <label>Basic <span id="basicCount">0 (0%)</span></label>
+                    <div><span id="basicBar"></span></div>
+                </div>
+
+                <div class="skill-row">
+                    <label>Beginner <span id="beginnerCount">0 (0%)</span></label>
+                    <div><span id="beginnerBar"></span></div>
+                </div>
+
+                <div class="skill-row">
+                    <label>Intermediate <span id="intermediateCount">0 (0%)</span></label>
+                    <div><span id="intermediateBar"></span></div>
+                </div>
+
+                <div class="skill-row">
+                    <label>Advanced <span id="advancedCount">0 (0%)</span></label>
+                    <div><span id="advancedBar"></span></div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- REGISTRATIONS -->
+    <section id="registrationsSection" class="admin-section">
+
+        <div class="table-card">
+            <input 
+                type="text" 
+                id="adminSearch" 
+                class="admin-search" 
+                placeholder="Search registrations..."
+            >
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Registrant</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Training</th>
+                        <th>Laptop</th>
+                        <th>Learning Goals</th>
+                        <th>Excel Usage</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="registrationTableBody"></tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <!-- TRAININGS -->
+    <section id="trainingsSection" class="admin-section">
+
+        <div class="training-admin-grid" id="trainingAdminGrid">
+            <div class="training-admin-card">
+                <h3>No training data yet</h3>
+                <p>Submitted registrations will appear here.</p>
+                <span>0 interested</span>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- REPORTS -->
+    <section id="reportsSection" class="admin-section">
+
+        <div class="report-card">
+            <h3>Summary Report</h3>
+            <p id="adminReportText">No registration data yet.</p>
+        </div>
+
+    </section>
+
+</main>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="admin-bottom-nav">
+    <button class="active" onclick="showAdminSection('dashboardSection')">Dashboard</button>
+    <button onclick="showAdminSection('registrationsSection')">Registrations</button>
+    <button onclick="showAdminSection('trainingsSection')">Trainings</button>
+    <button onclick="showAdminSection('reportsSection')">Reports</button>
+</nav>
+
+<!-- EMAIL PREVIEW MODAL -->
+<div class="email-modal" id="emailModal">
+    <div class="email-box">
+        <button class="email-close" onclick="closeEmailModal()">×</button>
+
+        <h2>Email Preview</h2>
+
+        <p class="email-label">Recipient</p>
+        <p class="email-to" id="emailTo"></p>
+
+        <p class="email-label">Message</p>
+        <pre class="email-message" id="emailMessage"></pre>
+
+        <a href="#" target="_blank" id="openEmailBtn" class="open-email-btn">
+            Open in Gmail
+        </a>
+    </div>
+</div>
+
+<!-- DELETE CONFIRMATION MODAL -->
+<div class="delete-modal" id="deleteModal">
+    <div class="delete-box">
+        <h2>Delete Record?</h2>
+        <p>This action will remove the selected registration from the admin dashboard.</p>
+
+        <div class="delete-actions">
+            <button class="cancel-delete-btn" onclick="closeDeleteModal()">Cancel</button>
+            <button class="confirm-delete-btn" onclick="confirmDeleteRegistration()">Delete</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

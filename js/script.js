@@ -26,7 +26,7 @@ function backToHome() {
 
 /* ================= SAVE REGISTRATION TO GOOGLE SHEETS ================= */
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbzvn-r0ZHOoyyORuJC6s-MYiiy2l407p5LBMnHJcEJBXu_kI5Gj1vItRfniPNf9qRE_Mg/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbwVH5QY7v20wYutynrnfYiK7o--k-E22BDnMb6krynKL2sK8sl-GEG_9VxfUl7pyCaf9A/exec";
 
 function saveRegistration() {
 
@@ -72,10 +72,6 @@ function saveRegistration() {
     status: "Interested"
 };
 
-let registrations = JSON.parse(localStorage.getItem("registrations")) || [];
-registrations.push(registration);
-localStorage.setItem("registrations", JSON.stringify(registrations));
-
     fetch(scriptURL, {
 
         method: "POST",
@@ -86,24 +82,38 @@ localStorage.setItem("registrations", JSON.stringify(registrations));
 
     .then(response => response.json())
 
-    .then(data => {
+  .then(data => {
+    
+    if (data.result === "duplicate") {
+    showDuplicateMessage(data.message);
+    return;
+    }
 
-        closeRegistrationModal();
+    let registrations = JSON.parse(localStorage.getItem("registrations")) || [];
 
-        document.getElementById("successModal")
-            .classList.add("active");
+    registrations.push(registration);
 
-        document.getElementById("registrationForm").reset();
+    localStorage.setItem(
+        "registrations",
+        JSON.stringify(registrations)
+    );
 
-        document.querySelectorAll(
-            ".choice-group button, .skill-grid button"
-        ).forEach(button => {
+    closeRegistrationModal();
 
-            button.classList.remove("selected");
+    document.getElementById("successModal")
+        .classList.add("active");
 
-        });
+    document.getElementById("registrationForm").reset();
 
-    })
+    document.querySelectorAll(
+        ".choice-group button, .skill-grid button"
+    ).forEach(button => {
+
+        button.classList.remove("selected");
+
+    });
+
+})
 
     .catch(error => {
 
@@ -112,6 +122,24 @@ localStorage.setItem("registrations", JSON.stringify(registrations));
         console.error(error);
 
     });
+}
+
+function showDuplicateMessage(message) {
+    const errorBox = document.getElementById("registrationError");
+
+    if (errorBox) {
+        errorBox.textContent = message;
+        errorBox.classList.add("show");
+    }
+}
+
+function showDuplicateMessage(message) {
+    const errorBox = document.getElementById("registrationError");
+
+    if (!errorBox) return;
+
+    errorBox.textContent = message;
+    errorBox.classList.add("show");
 }
 
 /* ================= SELECT FORM BUTTONS ================= */
@@ -738,3 +766,5 @@ function confirmDeleteRegistration() {
     closeDeleteModal();
     loadRegistrations();
 }
+
+

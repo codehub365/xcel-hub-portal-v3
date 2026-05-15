@@ -2533,3 +2533,107 @@ body.admin-page {
 .registration-error.show {
     display: block;
 }
+
+/* ================= MOBILE RESPONSIVE FIXES ================= */
+
+@media (max-width: 768px) {
+
+    header,
+    .testimonial-header {
+        padding: 14px 22px;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    nav,
+    .testimonial-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .hero,
+    .testimonial-hero {
+        min-height: auto;
+        padding: 90px 24px;
+        text-align: center;
+    }
+
+    .hero h1,
+    .testimonial-hero h1 {
+        font-size: 42px;
+        line-height: 1.1;
+    }
+
+    .hero p,
+    .testimonial-hero p {
+        font-size: 16px;
+    }
+
+    .registration-container,
+    .success-box {
+        width: 92%;
+        max-width: 92%;
+        padding: 28px 22px;
+    }
+
+    .registration-form {
+        max-height: 78vh;
+        overflow-y: auto;
+    }
+
+    .name-row,
+    .choice-group,
+    .skill-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trainings-grid,
+    .testimonial-grid,
+    .dashboard-cards,
+    .dashboard-grid,
+    .footer-info {
+        grid-template-columns: 1fr;
+    }
+
+    .purpose-cards,
+    .team-grid,
+    .trainer-card {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .trainer-card {
+        text-align: center;
+    }
+
+    .trainer-card img {
+        width: 180px;
+        height: 180px;
+    }
+
+    .team-member {
+        width: 80%;
+    }
+
+    .admin-wrapper {
+        padding: 24px 16px 90px;
+    }
+
+    .admin-title h1 {
+        font-size: 38px;
+    }
+
+    .admin-bottom-nav {
+        width: 92%;
+        overflow-x: auto;
+    }
+
+    .table-card {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 900px;
+    }
+}
